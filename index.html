@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ReplyAI – AI-Powered LinkedIn Replies</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1a1a1a; background: #fff; }
+    a { color: #0077b5; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 40px; border-bottom: 1px solid #e5e7eb; position: sticky; top: 0; background: #fff; z-index: 100; }
+    .nav-logo { font-size: 20px; font-weight: 800; color: #0077b5; }
+    .nav-links { display: flex; gap: 24px; font-size: 14px; }
+    .nav-links a { color: #444; }
+    .nav-cta { background: #0077b5; color: #fff !important; padding: 8px 18px; border-radius: 20px; font-weight: 600; font-size: 14px; }
+    .nav-cta:hover { background: #005e8f; text-decoration: none !important; }
+
+    .hero { text-align: center; padding: 80px 24px 60px; max-width: 720px; margin: 0 auto; }
+    .hero-badge { display: inline-block; background: #e8f4fd; color: #0077b5; font-size: 13px; font-weight: 600; padding: 4px 14px; border-radius: 20px; margin-bottom: 20px; }
+    .hero h1 { font-size: 48px; font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+    .hero h1 span { color: #0077b5; }
+    .hero p { font-size: 18px; color: #555; line-height: 1.6; margin-bottom: 36px; }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: #0077b5; color: #fff; padding: 14px 28px; border-radius: 8px; font-weight: 700; font-size: 16px; }
+    .btn-primary:hover { background: #005e8f; text-decoration: none; color: #fff; }
+    .btn-secondary { background: #f3f6f8; color: #333; padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 16px; }
+
+    .section { padding: 64px 24px; max-width: 960px; margin: 0 auto; }
+    .section-label { text-align: center; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #0077b5; margin-bottom: 12px; }
+    .section h2 { text-align: center; font-size: 32px; font-weight: 800; margin-bottom: 48px; }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; }
+    .step { text-align: center; }
+    .step-icon { font-size: 40px; margin-bottom: 12px; }
+    .step h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .step p { font-size: 14px; color: #666; line-height: 1.5; }
+    .tones { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 32px; }
+    .tone-chip { background: #f3f6f8; border: 1px solid #d0d8e0; border-radius: 20px; padding: 8px 18px; font-size: 14px; font-weight: 500; }
+
+    .pricing-section { background: #f8fafc; padding: 64px 24px; }
+    .pricing-inner { max-width: 480px; margin: 0 auto; text-align: center; }
+    .pricing-inner .section-label { margin-bottom: 12px; }
+    .pricing-inner h2 { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+    .pricing-inner .sub { color: #666; margin-bottom: 36px; font-size: 15px; }
+    .pricing-card { background: #fff; border: 2px solid #0077b5; border-radius: 16px; padding: 36px 32px; box-shadow: 0 4px 24px rgba(0,119,181,0.08); }
+    .plan-name { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #0077b5; margin-bottom: 8px; }
+    .plan-price { font-size: 52px; font-weight: 800; color: #1a1a1a; }
+    .plan-price span { font-size: 20px; font-weight: 500; color: #888; }
+    .plan-features { list-style: none; margin: 24px 0 28px; text-align: left; }
+    .plan-features li { display: flex; align-items: center; gap: 10px; font-size: 15px; padding: 7px 0; border-bottom: 1px solid #f0f0f0; }
+    .plan-features li:last-child { border: none; }
+    .check { color: #22c55e; font-size: 16px; }
+    .free-note { margin-top: 16px; font-size: 13px; color: #888; }
+
+    .faq { max-width: 640px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid #e5e7eb; padding: 20px 0; }
+    .faq-item h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+    .faq-item p { font-size: 14px; color: #555; line-height: 1.6; }
+
+    footer { border-top: 1px solid #e5e7eb; padding: 32px 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 13px; color: #888; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { color: #888; }
+
+    .legal { max-width: 720px; margin: 60px auto; padding: 0 24px 60px; }
+    .legal h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+    .legal .updated { font-size: 13px; color: #888; margin-bottom: 32px; }
+    .legal h2 { font-size: 18px; font-weight: 700; margin: 28px 0 8px; }
+    .legal p, .legal li { font-size: 15px; color: #444; line-height: 1.7; margin-bottom: 8px; }
+    .legal ul { padding-left: 20px; }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 32px; }
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">⚡ ReplyAI</div>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#terms">Terms</a>
+    <a href="#privacy">Privacy</a>
+  </div>
+  <a href="https://chromewebstore.google.com" class="nav-links nav-cta">Add to Chrome — Free</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">🚀 Chrome Extension for LinkedIn</div>
+  <h1>Reply on LinkedIn like a <span>human</span>, not a bot.</h1>
+  <p>ReplyAI generates contextual, AI-powered comments in one click — with 5 tone styles. No more staring at a blank comment box.</p>
+  <div class="hero-btns">
+    <a href="https://chromewebstore.google.com" class="btn-primary">Add to Chrome — It's Free</a>
+    <a href="#pricing" class="btn-secondary">See Pricing</a>
+  </div>
+</section>
+
+<section class="section" id="how">
+  <div class="section-label">How it works</div>
+  <h2>Three clicks. Done.</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-icon">🔐</div>
+      <h3>1. Sign in with Google</h3>
+      <p>One click sign-in — no password needed.</p>
+    </div>
+    <div class="step">
+      <div class="step-icon">📝</div>
+      <h3>2. Open any LinkedIn post</h3>
+      <p>Click the comment box and ReplyAI buttons appear instantly.</p>
+    </div>
+    <div class="step">
+      <div class="step-icon">⚡</div>
+      <h3>3. Pick a tone & generate</h3>
+      <p>A human-sounding reply appears in seconds, ready to post.</p>
+    </div>
+  </div>
+  <div class="tones">
+    <span class="tone-chip">💡 Thoughtful</span>
+    <span class="tone-chip">🤔 Curious</span>
+    <span class="tone-chip">👍 Agree</span>
+    <span class="tone-chip">🔥 Challenge</span>
+    <span class="tone-chip">😄 Witty</span>
+  </div>
+</section>
+
+<section class="pricing-section" id="pricing">
+  <div class="pricing-inner">
+    <div class="section-label">Pricing</div>
+    <h2>Simple, transparent pricing</h2>
+    <p class="sub">Start free. Upgrade when you're ready.</p>
+    <div class="pricing-card">
+      <div class="plan-name">Pro Plan</div>
+      <div class="plan-price">$9.99<span>/month</span></div>
+      <ul class="plan-features">
+        <li><span class="check">✅</span> Unlimited AI-generated replies</li>
+        <li><span class="check">✅</span> All 5 tone styles</li>
+        <li><span class="check">✅</span> Image &amp; video post support</li>
+        <li><span class="check">✅</span> Priority response speed</li>
+        <li><span class="check">✅</span> Cancel anytime</li>
+      </ul>
+      <a href="#" class="btn-primary" style="display:block;text-align:center;">Upgrade to Pro →</a>
+      <p class="free-note">First 5 replies are always free. No credit card needed to start.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="section-label">FAQ</div>
+  <h2>Frequently asked questions</h2>
+  <div class="faq">
+    <div class="faq-item">
+      <h3>Is ReplyAI free to use?</h3>
+      <p>Yes — you get 5 free AI replies with no credit card required. After that, upgrade to Pro for $9.99/month for unlimited replies.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Will the replies sound like AI?</h3>
+      <p>No. ReplyAI is specifically trained to avoid AI clichés like "Great post!" or hollow phrases. Comments are specific to the post content and sound like a real person wrote them.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Which LinkedIn posts does it work on?</h3>
+      <p>All LinkedIn posts — text, image, and video. ReplyAI reads the post content and can even analyse images to generate relevant comments.</p>
+    </div>
+    <div class="faq-item">
+      <h3>How do I cancel?</h3>
+      <p>You can cancel your subscription anytime from your billing portal. No questions asked.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Is my LinkedIn data safe?</h3>
+      <p>ReplyAI only reads the text of the post you're commenting on. We never store your LinkedIn credentials or post history.</p>
+    </div>
+  </div>
+</section>
+
+<section class="legal" id="terms">
+  <h1>Terms of Service</h1>
+  <p class="updated">Last updated: June 25, 2026</p>
+  <h2>1. Acceptance of Terms</h2>
+  <p>By installing or using ReplyAI ("the Extension"), you agree to be bound by these Terms of Service. If you do not agree, do not use the Extension.</p>
+  <h2>2. Description of Service</h2>
+  <p>ReplyAI is a Chrome Extension that generates AI-powered comment suggestions for LinkedIn posts. It is not affiliated with LinkedIn Corporation.</p>
+  <h2>3. Free Tier &amp; Paid Subscription</h2>
+  <p>ReplyAI offers 5 free AI-generated replies. Continued use beyond the free tier requires a paid subscription at $9.99/month. Subscriptions are billed monthly and can be cancelled at any time.</p>
+  <h2>4. Refund Policy</h2>
+  <p>You may request a full refund within 7 days of your first payment. After 7 days, no refunds are issued for the current billing period. To request a refund, email rohandear@gmail.com.</p>
+  <h2>5. Acceptable Use</h2>
+  <p>You agree not to use ReplyAI to generate spam, misleading content, or content that violates LinkedIn's Terms of Service. You are solely responsible for any comments you post using suggestions from ReplyAI.</p>
+  <h2>6. Disclaimer of Warranties</h2>
+  <p>ReplyAI is provided "as is" without warranties of any kind. We do not guarantee that generated replies will be accurate, appropriate, or error-free.</p>
+  <h2>7. Limitation of Liability</h2>
+  <p>To the maximum extent permitted by law, the developer shall not be liable for any indirect, incidental, or consequential damages arising from your use of ReplyAI.</p>
+  <h2>8. Changes to Terms</h2>
+  <p>We reserve the right to modify these terms at any time. Continued use of the Extension after changes constitutes acceptance of the new terms.</p>
+  <h2>9. Contact</h2>
+  <p>For any questions about these Terms, contact: rohandear@gmail.com</p>
+</section>
+
+<section class="legal" id="privacy">
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: June 25, 2026</p>
+  <h2>1. Information We Collect</h2>
+  <ul>
+    <li>Your Google account email address</li>
+    <li>Text content of LinkedIn posts you choose to comment on</li>
+    <li>Your subscription status and reply count</li>
+  </ul>
+  <h2>2. Information We Do Not Collect</h2>
+  <ul>
+    <li>Your LinkedIn password or credentials</li>
+    <li>Your LinkedIn browsing history or feed</li>
+  </ul>
+  <h2>3. How We Use Your Information</h2>
+  <p>We use collected information solely to provide the ReplyAI service — verifying identity, checking subscription status, and generating AI reply suggestions.</p>
+  <h2>4. Data Storage</h2>
+  <p>Your email and subscription status are stored securely in our database. Post text sent for AI processing is not stored after the reply is generated.</p>
+  <h2>5. Third-Party Services</h2>
+  <ul>
+    <li><strong>Google OAuth</strong> — sign-in authentication</li>
+    <li><strong>OpenAI</strong> — AI reply generation</li>
+    <li><strong>Paddle</strong> — payment processing</li>
+    <li><strong>Cloudflare Workers</strong> — server-side processing</li>
+  </ul>
+  <h2>6. Data Sharing</h2>
+  <p>We do not sell or share your personal data with any third parties beyond the services listed above.</p>
+  <h2>7. Your Rights</h2>
+  <p>You have the right to access, correct, or delete your personal data. Contact rohandear@gmail.com to exercise these rights.</p>
+  <h2>8. Contact</h2>
+  <p>For privacy questions: rohandear@gmail.com</p>
+</section>
+
+<footer>
+  <div>© 2026 ReplyAI. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="#terms">Terms of Service</a>
+    <a href="#privacy">Privacy Policy</a>
+    <a href="mailto:rohandear@gmail.com">Support</a>
+  </div>
+</footer>
+
+</body>
+</html>
