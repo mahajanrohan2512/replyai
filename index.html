@@ -10,12 +10,12 @@
   <script>
     // ✏️ REPLACE with your Paddle Client-Side Token from Paddle Dashboard → Developer Tools → Authentication
     // For sandbox testing use: Paddle.Environment.set('sandbox');
-    Paddle.Initialize({ token: 'YOUR_PADDLE_CLIENT_TOKEN' });
+    Paddle.Initialize({ token: 'live_89805476b9b3ecacaf9f2cf4ddc' });
 
     function openCheckout() {
       // ✏️ REPLACE with your Paddle Price ID (from Paddle Dashboard → Catalog → Products → your product → Prices)
       Paddle.Checkout.open({
-        items: [{ priceId: 'YOUR_PADDLE_PRICE_ID', quantity: 1 }],
+        items: [{ priceId: 'pri_01kvzb2wp5gt3b9s6yfjy81ser', quantity: 1 }],
       });
     }
   </script>
@@ -266,6 +266,3 @@
     <a href="mailto:rohandear@gmail.com">Support</a>
   </div>
 </footer>
-
-</body>
-</html>
