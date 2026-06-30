@@ -4,6 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ReplyAI – AI-Powered LinkedIn Replies</title>
+
+  <!-- Paddle.js (Billing) -->
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+  <script>
+    // ✏️ REPLACE with your Paddle Client-Side Token from Paddle Dashboard → Developer Tools → Authentication
+    // For sandbox testing use: Paddle.Environment.set('sandbox');
+    Paddle.Initialize({ token: 'YOUR_PADDLE_CLIENT_TOKEN' });
+
+    function openCheckout() {
+      // ✏️ REPLACE with your Paddle Price ID (from Paddle Dashboard → Catalog → Products → your product → Prices)
+      Paddle.Checkout.open({
+        items: [{ priceId: 'YOUR_PADDLE_PRICE_ID', quantity: 1 }],
+      });
+    }
+  </script>
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1a1a1a; background: #fff; }
@@ -53,6 +69,13 @@
     .check { color: #22c55e; font-size: 16px; }
     .free-note { margin-top: 16px; font-size: 13px; color: #888; }
 
+    .btn-checkout {
+      display: block; text-align: center; background: #0077b5; color: #fff;
+      padding: 14px 28px; border-radius: 8px; font-weight: 700; font-size: 16px;
+      border: none; cursor: pointer; width: 100%; transition: background 0.2s;
+    }
+    .btn-checkout:hover { background: #005e8f; }
+
     .faq { max-width: 640px; margin: 0 auto; }
     .faq-item { border-bottom: 1px solid #e5e7eb; padding: 20px 0; }
     .faq-item h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
@@ -87,6 +110,7 @@
     <a href="#terms">Terms</a>
     <a href="#privacy">Privacy</a>
   </div>
+  <!-- ✏️ Replace the href with your Chrome Web Store listing URL once published -->
   <a href="https://chromewebstore.google.com" class="nav-links nav-cta">Add to Chrome — Free</a>
 </nav>
 
@@ -95,6 +119,7 @@
   <h1>Reply on LinkedIn like a <span>human</span>, not a bot.</h1>
   <p>ReplyAI generates contextual, AI-powered comments in one click — with 5 tone styles. No more staring at a blank comment box.</p>
   <div class="hero-btns">
+    <!-- ✏️ Replace the href with your Chrome Web Store listing URL once published -->
     <a href="https://chromewebstore.google.com" class="btn-primary">Add to Chrome — It's Free</a>
     <a href="#pricing" class="btn-secondary">See Pricing</a>
   </div>
@@ -144,7 +169,7 @@
         <li><span class="check">✅</span> Priority response speed</li>
         <li><span class="check">✅</span> Cancel anytime</li>
       </ul>
-      <a href="#" class="btn-primary" style="display:block;text-align:center;">Upgrade to Pro →</a>
+      <button class="btn-checkout" onclick="openCheckout()">Upgrade to Pro →</button>
       <p class="free-note">First 5 replies are always free. No credit card needed to start.</p>
     </div>
   </div>
