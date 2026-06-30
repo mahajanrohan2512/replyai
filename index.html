@@ -16,6 +16,9 @@
       // ✏️ REPLACE with your Paddle Price ID (from Paddle Dashboard → Catalog → Products → your product → Prices)
       Paddle.Checkout.open({
         items: [{ priceId: 'pri_01kvzb2wp5gt3b9s6yfjy81ser', quantity: 1 }],
+        settings: {
+          successUrl: 'https://mahajanrohan2512.github.io/replyai/?success=true'
+        }
       });
     }
   </script>
@@ -262,7 +265,4 @@
   <div>© 2026 ReplyAI. All rights reserved.</div>
   <div class="footer-links">
     <a href="#terms">Terms of Service</a>
-    <a href="#privacy">Privacy Policy</a>
-    <a href="mailto:rohandear@gmail.com">Support</a>
-  </div>
-</footer>
+  
